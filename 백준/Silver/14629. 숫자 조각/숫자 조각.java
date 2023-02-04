@@ -1,47 +1,47 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
+import java.util.*;
 
 public class Main {
-    static String Num,answer;
-    static Long minResult,targetNum;
-    public static void main(String[] args) throws Exception{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        minResult = 9876543210L;
-        Num = br.readLine();
-        targetNum = Long.parseLong(Num);
-        if(targetNum>=minResult){
+    static Long min = 9876543210L;
+    static String result = "";
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean[] numbers = {false, false, false, false, false, false, false, false, false, false};
+        String n = scanner.next();
+        Long num = Long.parseLong(n);
+
+        if (num >= min || n.length() > 10) {
             System.out.println("9876543210");
-        }else if(Num.length()<=10){
-            boolean[] numbers = new boolean[10];
-            int digit = Num.length();
-            dfs(numbers,0,"",digit);
-            if(digit!=1){
-                dfs(numbers,0,"",digit-1);
-            }
-            if(digit!=10){
-                dfs(numbers,0,"",digit+1);
+        } else {
+            int length = n.length();
+
+            dfs(numbers, 0, "", length, num);
+            if (length != 1)
+                dfs(numbers, 0, "", length - 1, num);
+            if (length != 10) {
+                dfs(numbers, 0, "", length + 1, num);
             }
 
-            System.out.println(Long.parseLong(answer));
+            System.out.println(Long.parseLong(result));
         }
+        scanner.close();
     }
 
-    private static void dfs(boolean[] numbers,int idx,String myNum,int Max){
-        if(idx==Max){
-            Long calNum = Long.parseLong(myNum);
-            Long result = Math.abs(calNum-targetNum);
-            if(minResult>result){
-                minResult = result;
-                answer = myNum;
+    private static void dfs(boolean[] numbers, int index, String s, int length, Long num) {
+
+        if (index == length) {
+            Long tmp = Math.abs(Long.parseLong(s) - num);
+            if (tmp < min) {
+                min = tmp;
+                result = s;
             }
             return;
         }
 
-        for (int i = 0; i <10; i++) {
-            if(!numbers[i]){
+        for (int i = 0; i < 10; i++) {
+            if (!numbers[i]) {
                 numbers[i] = true;
-                dfs(numbers,idx+1,myNum+Integer.toString(i),Max);
+                dfs(numbers, index + 1, s + i, length, num);
                 numbers[i] = false;
             }
         }
