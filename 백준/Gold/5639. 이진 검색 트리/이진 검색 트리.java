@@ -8,7 +8,7 @@ public class Main {
 
         while (true) {
             String line = br.readLine();
-            if (line == null || line.equals("")) break;
+            if (line == null) break;
             int value = Integer.parseInt(line);
             Node node = new Node(value, null, null);
             insertNode(node);
