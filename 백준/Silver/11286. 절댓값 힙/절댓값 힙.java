@@ -25,10 +25,7 @@ public class Main {
     private static void insert(int x) {
         int index = ++size;
 
-        while (index != 1 && Math.abs(x) <= Math.abs(minHeap[index / 2])) {
-            if (Math.abs(x) == Math.abs(minHeap[index / 2])) {
-                if (x > 0) break;
-            }
+        while (index != 1 && (Math.abs(x) < Math.abs(minHeap[index / 2])) || (Math.abs(x) == Math.abs(minHeap[index / 2]) && x < 0)) {
             minHeap[index] = minHeap[index / 2];
             index /= 2;
         }
@@ -48,10 +45,7 @@ public class Main {
             if (size > child &&
                     (Math.abs(minHeap[child]) > Math.abs(minHeap[child + 1]) ||
                     (Math.abs(minHeap[child]) == Math.abs(minHeap[child + 1]) && minHeap[child] > minHeap[child + 1]))) child++;
-            if (size < child || Math.abs(minHeap[parent]) < Math.abs(minHeap[child])) break;
-            if (Math.abs(minHeap[parent]) == Math.abs(minHeap[child])) {
-                if (minHeap[parent] < 0) break;
-            }
+            if (size < child || Math.abs(minHeap[parent]) < Math.abs(minHeap[child]) || (Math.abs(minHeap[parent]) == Math.abs(minHeap[child]) && minHeap[parent] < 0)) break;
 
             int temp = minHeap[child];
             minHeap[child] = minHeap[parent];
