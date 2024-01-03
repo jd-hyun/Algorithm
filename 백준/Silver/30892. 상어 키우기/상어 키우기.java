@@ -31,26 +31,18 @@ public class Main {
     static void calculateMaxSize() {
         Stack<Integer> stack = new Stack<>();
 
-        for (int shark : sharks) {
-            stack.push(shark);
-        }
-
-
+        int index = 0;
         int count = 0;
         while (count < K) {
-            boolean ate = false;
 
-            for (int i = stack.size() - 1; i >= 0; i--) {
-                if (T > stack.get(i)) {
-                    ate = true;
-                    T += stack.get(i);
-                    stack.removeElementAt(i);
-                    count++;
-                    break;
-                }
+            while (index < N && sharks[index] < T) {
+                stack.push(sharks[index++]);
             }
 
-            if (!ate) break;
+            if (stack.isEmpty()) break;
+
+            T += stack.pop();
+            count++;
         }
     }
 }
