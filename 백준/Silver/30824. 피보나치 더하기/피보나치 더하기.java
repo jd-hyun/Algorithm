@@ -9,7 +9,15 @@ public class Main {
         int T = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        fibonacci = generateFibonacci(10000000000000000L);
+        fibonacci = new long[79];
+        fibonacci[0] = 1;
+        fibonacci[1] = 1;
+
+        for (int j = 2; j < 79; j++) {
+            fibonacci[j] = fibonacci[j - 2] + fibonacci[j - 1];
+        }
+
+
 
         for (int i = 0; i < T; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
@@ -21,25 +29,6 @@ public class Main {
             sb.append("\n");
         }
         System.out.println(sb);
-    }
-
-    private static long[] generateFibonacci(long limit) {
-        long[] f = {1, 1};
-        while (true) {
-            long fi = f[f.length - 1] + f[f.length - 2];
-            if (fi > limit) {
-                break;
-            }
-            f = append(f, fi);
-        }
-        return f;
-    }
-
-    private static long[] append(long[] array, long value) {
-        long[] newArray = new long[array.length + 1];
-        System.arraycopy(array, 0, newArray, 0, array.length);
-        newArray[array.length] = value;
-        return newArray;
     }
 
     private static boolean isMake(int k, long x) {
