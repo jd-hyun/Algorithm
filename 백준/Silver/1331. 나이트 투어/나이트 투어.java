@@ -22,11 +22,11 @@ public class Main {
             }
 
             else {
-                if (Math.abs(row - preRow) == 3) {
+                if (Math.abs(row - preRow) >= 3) {
                     isValid = false;
                     continue;
                 }
-                if (Math.abs(col - preCol) == 3) {
+                if (Math.abs(col - preCol) >= 3) {
                     isValid = false;
                     continue;
                 }
