@@ -38,7 +38,7 @@ class Solution {
             }
         }
         
-        Collections.sort(list, (o1, o2) -> o1[sortIndex] - o2[sortIndex]);
+        Collections.sort(list, Comparator.comparingInt(o -> o[sortIndex]));
         
         int[][] answer = new int[list.size()][4];
         
