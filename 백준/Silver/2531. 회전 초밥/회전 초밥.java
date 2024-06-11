@@ -19,17 +19,36 @@ public class Main {
             sushi[i] = Integer.parseInt(br.readLine());
         }
 
-        int max = 0;
-        for (int i = 0; i < N; i++) {
-            Set<Integer> set = new HashSet<>();
-            for (int j = i; j < i + k; j++) {
-                if (j >= N) set.add(sushi[j % N]);
-                else set.add(sushi[j]);
-            }
-            if (!set.contains(c)) {
-                max = Math.max(max, set.size() + 1);
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < k; i++) {
+            if (map.containsKey(sushi[i])) {
+                map.put(sushi[i], map.get(sushi[i]) + 1);
             } else {
-                max = Math.max(max, set.size());
+                map.put(sushi[i], 1);
+            }
+        }
+        int max = map.size();
+        if (!map.containsKey(c)) max++;
+        for (int i = 1; i < N; i++) {
+            if (map.containsKey(sushi[i - 1])) map.put(sushi[i - 1], map.get(sushi[i - 1]) - 1);
+            if (map.get(sushi[i - 1]) == 0) map.remove(sushi[i - 1]);
+            if (i + k >= N) {
+                if (map.containsKey(sushi[(i + k - 1) % N])) {
+                    map.put(sushi[(i + k - 1) % N], map.get(sushi[(i + k - 1) % N]) + 1);
+                } else {
+                    map.put(sushi[(i + k - 1) % N], 1);
+                }
+            } else {
+                if (map.containsKey(sushi[i + k - 1])) {
+                    map.put(sushi[i + k - 1], map.get(sushi[i + k - 1]) + 1);
+                } else {
+                    map.put(sushi[i + k - 1], 1);
+                }
+            }
+            if (!map.containsKey(c)) {
+                max = Math.max(max, map.size() + 1);
+            } else {
+                max = Math.max(max, map.size());
             }
         }
         System.out.println(max);
