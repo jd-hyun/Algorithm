@@ -2,18 +2,13 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
         
         for (int num : nums) {
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
-            }
+            set.add(num);
         }
         
-        
-        int answer = Math.min(nums.length / 2, map.size());
+        int answer = Math.min(nums.length / 2, set.size());
         return answer;
     }
 }
