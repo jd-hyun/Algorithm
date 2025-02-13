@@ -21,17 +21,13 @@ class Solution {
                 for (String phone : map.keySet()) {
                     for (int j = 0; j < i; j++) {
                         if (list.get(j).containsKey(phone.substring(0, j + 1))) {
-                            answer = false;
-                            break;
+                            return false;
                         }
                     }
-                    
-                    if (!answer) break;
                 }
             }
-            
-            if (!answer) break;
         }
+        
         return answer;
     }
 }
